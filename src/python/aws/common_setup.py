@@ -41,3 +41,4 @@ class AWSHandler: # pylint: disable=too-few-public-methods
         self.dynamodb_client = boto3.client("dynamodb", **self.aws_handler_kwargs)
         self.dynamodb_resource = boto3.resource("dynamodb", **self.aws_handler_kwargs)
         self.spark = spark
+        self.glue_ctx = glue_context

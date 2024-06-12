@@ -60,3 +60,5 @@ def test_spark_example(monkeypatch, set_localstack_env_vars, create_aws_resource
     # Test Processed data
     count = spark.read.parquet("s3://processed-data/label/").count()
     assert count == 5
+
+    aws_handler.glue_ctx.purge_s3_path("s3://processed-data/")
