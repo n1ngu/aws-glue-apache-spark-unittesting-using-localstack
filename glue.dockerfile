@@ -12,6 +12,16 @@ RUN usermod --uid ${UID} --gid glue glue_user
 RUN find /tmp/ -maxdepth 1 -uid 10000 -exec chown --recursive --verbose glue_user:glue '{}' ';'
 USER glue_user
 
+COPY <<EOF /home/glue_user/.aws/config
+[profile localstack]
+endpoint_url = http://localstack:4566
+output = table
+region = xx-fake-0
+aws_access_key_id = AACCESSKID
+aws_secret_access_key = S3CR3T
+
+EOF
+
 ENV DISABLE_SSL=foobar
 
 ENTRYPOINT [ "bash", "-l", "-c", "exec $0 $@"]

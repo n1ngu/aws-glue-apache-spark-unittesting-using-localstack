@@ -25,6 +25,9 @@ services:
     - "127.0.0.1:8888:8888"
     environment:
       PYTHONPATH: ~/workspace/src/python
+      AWS_DEFAULT_REGION: xx-fake-0
+      AWS_ENDPOINT_URL: http://localstack:4566
+      AWS_PROFILE: localstack
     depends_on: [localstack]
     volumes:
     - .:/home/glue_user/workspace
