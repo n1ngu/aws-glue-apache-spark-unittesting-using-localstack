@@ -15,12 +15,12 @@ def set_localstack_env_vars(monkeypatch):
     env = {
         "AWS_USE_SSL": "False",
         "AWS_VERIFY": "False",
-        "AWS_ENDPOINT_URL": "http://127.0.0.1:4566",
+        "AWS_ENDPOINT_URL": "http://localstack:4566",
         "AWS_ACCESS_KEY_ID": "dummy-access-key-id",
         "AWS_ACCESS_KEY": "dummy-access-key",
         "AWS_SECRET_ACCESS_KEY": "dummy-test-secret-key",
         "AWS_SECRET_KEY": "dummy-test-secret-key",
-        "AWS_DEFAULT-REGION": "us-east-1"
+        "AWS_DEFAULT_REGION": "us-east-1"
     }
     # add localstack environment variables to monkeypatch
     # to use in pytest

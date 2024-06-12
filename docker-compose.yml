@@ -1,0 +1,33 @@
+volumes:
+  localstack:
+
+services:
+
+  localstack:
+    image: localstack/localstack
+    ports:
+    - "127.0.0.1:4566:4566"            # <-- LocalStack Gateway
+    - "127.0.0.1:4510-4559:4510-4559"  # <-- External services port range
+    volumes:
+    - ./etc/localstack:/etc/localstack
+    - ./var:/mnt/var
+    - localstack:/var/lib/localstack
+    - /var/run/docker.sock:/var/run/docker.sock
+
+  glue:
+    build:
+      context: .
+      dockerfile: glue.dockerfile
+    ports:
+    - "127.0.0.1:4040:4040"
+    - "127.0.0.1:18080:18080"
+    - "127.0.0.1:8998:8998"
+    - "127.0.0.1:8888:8888"
+    environment:
+      PYTHONPATH: ~/workspace/src/python
+    depends_on: [localstack]
+    volumes:
+    - .:/home/glue_user/workspace
+    tty: true
+    stdin_open: true
+    command: /home/glue_user/jupyter/jupyter_start.sh

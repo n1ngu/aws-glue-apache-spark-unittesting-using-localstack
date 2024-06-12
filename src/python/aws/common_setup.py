@@ -28,6 +28,10 @@ class AWSHandler: # pylint: disable=too-few-public-methods
         glue_context = GlueContext(spark_context)
         spark = glue_context.spark_session
         if self.aws_handler_kwargs["endpoint_url"]:
+            spark.conf.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+            spark.conf.set("fs.s3a.path.style.access",True)
+            spark.conf.set("fs.s3a.access.key","foo")
+            spark.conf.set("fs.s3a.secret.key","bar")
             spark.conf.set("fs.s3a.endpoint",  self.aws_handler_kwargs["endpoint_url"])
 
         self.s3_client = boto3.client("s3", **self.aws_handler_kwargs)
